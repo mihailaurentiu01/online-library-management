@@ -1,8 +1,23 @@
-import { Navbar, Dropdown, Avatar } from "flowbite-react";
+import { Navbar } from "flowbite-react";
+
+import { useLocation, useNavigate } from "react-router-dom";
+import routes from "../../js/routes";
 
 import styles from "./Navbar.module.css";
 
 const NavbarCustom = () => {
+  const history = useNavigate();
+  const location = useLocation();
+
+  const goToRoute = (event: React.MouseEvent) => {
+    event.preventDefault();
+
+    const target: HTMLElement = event.target;
+
+    const goTo: string | null = target.getAttribute("href");
+
+    history(goTo as string);
+  };
   return (
     <>
       <Navbar fluid={true} rounded={true} className={styles["navbar-bg"]}>
@@ -20,12 +35,34 @@ const NavbarCustom = () => {
           <Navbar.Toggle />
         </div>
         <Navbar.Collapse>
-          <Navbar.Link href="/navbars" active={true}>
+          <Navbar.Link
+            onClick={goToRoute}
+            href={routes.home}
+            active={location.pathname === routes.home}
+          >
             Home
           </Navbar.Link>
-          <Navbar.Link href="/navbars">User Login</Navbar.Link>
-          <Navbar.Link href="/navbars">User Signup</Navbar.Link>
-          <Navbar.Link href="/navbars">Admin Login</Navbar.Link>
+          <Navbar.Link
+            onClick={goToRoute}
+            href={routes.login}
+            active={location.pathname === routes.login}
+          >
+            User Login
+          </Navbar.Link>
+          <Navbar.Link
+            onClick={goToRoute}
+            href={routes.signup}
+            active={location.pathname === routes.signup}
+          >
+            User Signup
+          </Navbar.Link>
+          <Navbar.Link
+            onClick={goToRoute}
+            href={routes.adminLogin}
+            active={location.pathname === routes.adminLogin}
+          >
+            Admin Login
+          </Navbar.Link>
         </Navbar.Collapse>
       </Navbar>
     </>
