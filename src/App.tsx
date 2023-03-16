@@ -4,6 +4,7 @@ import routes from "./js/routes";
 import Layout from "./components/Layout";
 
 import HomePage from "./pages/Home";
+import UserLoginPage from "./pages/Login/User";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Layout>
         <Routes>
           <Route path={routes.home} element={<HomePage />}></Route>
+          <Route path={routes.login} element={<UserLoginPage />}></Route>
         </Routes>
       </Layout>
     </div>

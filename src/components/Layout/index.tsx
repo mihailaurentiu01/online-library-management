@@ -5,7 +5,7 @@ const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
     <>
       <Navbar />
 
-      {children}
+      <div className="container mx-auto">{children}</div>
     </>
   );
 };
