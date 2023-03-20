@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.dx-theme-generic-typography a:not(.active) {
+    color: black !important;
+}

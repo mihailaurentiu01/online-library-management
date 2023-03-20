@@ -1,13 +1,12 @@
-import { Form, SimpleItem, ButtonItem } from "devextreme-react/form";
-const employee = {
-  name: "John Heart",
-  officeNumber: 901,
-  hireDate: new Date(2012, 4, 13),
-};
+import { useState } from "react";
 
-const hireDateOptions = {
-  disabled: true,
-};
+import {
+  Form,
+  SimpleItem,
+  ButtonItem,
+  RequiredRule,
+  EmailRule,
+} from "devextreme-react/form";
 
 const submitButtonOptions = {
   text: "Submit the Form",
@@ -15,18 +14,39 @@ const submitButtonOptions = {
   type: "default",
 };
 
-function LoginForm() {
-  return (
-    <Form formData={employee}>
-      <SimpleItem dataField="name" />
-      <SimpleItem dataField="officeNumber" />
-      <SimpleItem dataField="hireDate" editorOptions={hireDateOptions} />
+type UserLogin = {
+  email: string;
+  password: string;
+};
 
-      <ButtonItem
-        horizontalAlignment={"left"}
-        buttonOptions={submitButtonOptions}
-      />
-    </Form>
+function LoginForm() {
+  const [formData, setFormData] = useState<UserLogin>({
+    email: "",
+    password: "",
+  });
+
+  const onSubmitLoginForm = (e: React.FormEvent) => {
+    e.preventDefault();
+  };
+
+  return (
+    <form action="post" onSubmit={onSubmitLoginForm}>
+      <Form formData={formData}>
+        <SimpleItem dataField="email" editorType="dxTextBox">
+          <RequiredRule message="Email is required" />
+          <EmailRule message="Email is invalid" />
+        </SimpleItem>
+
+        <SimpleItem dataField="password" editorType="dxTextBox">
+          <RequiredRule message="Password is required" />
+        </SimpleItem>
+
+        <ButtonItem
+          horizontalAlignment={"left"}
+          buttonOptions={submitButtonOptions}
+        />
+      </Form>
+    </form>
   );
 }
 

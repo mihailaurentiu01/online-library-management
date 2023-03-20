@@ -18,6 +18,11 @@ const NavbarCustom = () => {
 
     history(goTo as string);
   };
+
+  const applyActiveClass = (route: string) => {
+    return location.pathname === route ? "active" : "";
+  };
+
   return (
     <>
       <Navbar fluid={true} rounded={true} className={styles["navbar-bg"]}>
@@ -38,6 +43,7 @@ const NavbarCustom = () => {
           <Navbar.Link
             onClick={goToRoute}
             href={routes.home}
+            className={applyActiveClass(routes.home)}
             active={location.pathname === routes.home}
           >
             Home
@@ -45,6 +51,7 @@ const NavbarCustom = () => {
           <Navbar.Link
             onClick={goToRoute}
             href={routes.login}
+            className={applyActiveClass(routes.login)}
             active={location.pathname === routes.login}
           >
             User Login
@@ -52,6 +59,7 @@ const NavbarCustom = () => {
           <Navbar.Link
             onClick={goToRoute}
             href={routes.signup}
+            className={applyActiveClass(routes.signup)}
             active={location.pathname === routes.signup}
           >
             User Signup
@@ -59,6 +67,7 @@ const NavbarCustom = () => {
           <Navbar.Link
             onClick={goToRoute}
             href={routes.adminLogin}
+            className={applyActiveClass(routes.adminLogin)}
             active={location.pathname === routes.adminLogin}
           >
             Admin Login
