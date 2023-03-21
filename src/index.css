@@ -5,3 +5,8 @@
 .dx-theme-generic-typography a:not(.active) {
     color: black !important;
 }
+
+.dx-theme-generic-typography a.active{
+    background-color: transparent !important;
+    font-weight: bold;
+}
