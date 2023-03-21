@@ -10,14 +10,14 @@ import {
 } from "devextreme-react/form";
 
 const submitButtonOptions = {
-  text: "Submit the Form",
+  text: "Signup",
   useSubmitBehavior: true,
   type: "default",
 };
 
 type UserSignup = {
   fullName: string;
-  mobileNumber: number;
+  mobileNumber: string;
   email: string;
   password: string;
   confirmPassword: string;
@@ -26,7 +26,7 @@ type UserSignup = {
 type MobileNumberOptions = {
   mask: string;
   maskRules: {
-    X: string;
+    X: RegExp;
   };
   maskInvalidMessage: string;
 };
@@ -34,7 +34,7 @@ type MobileNumberOptions = {
 function SignupForm() {
   const [formData, setFormData] = useState<UserSignup>({
     fullName: "",
-    mobileNumber: 0,
+    mobileNumber: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -44,7 +44,7 @@ function SignupForm() {
     useState<MobileNumberOptions>({
       mask: "+34 XXX XXX XXX",
       maskRules: {
-        X: "/[01-9]/",
+        X: /[01-9]/,
       },
       maskInvalidMessage: "The phone must have a correct Spain phone format",
     });
@@ -55,7 +55,7 @@ function SignupForm() {
 
   return (
     <form action="post" onSubmit={onSubmitSignupForm}>
-      <Form formData={formData} colCount={2}>
+      <Form formData={formData} colCount={1}>
         <GroupItem caption="Personal Data">
           <SimpleItem dataField="fullName" editorType="dxTextBox">
             <RequiredRule message="Full name is required" />
@@ -67,9 +67,7 @@ function SignupForm() {
           >
             <RequiredRule message="Password is required" />
           </SimpleItem>
-        </GroupItem>
 
-        <GroupItem caption="Personal Data">
           <SimpleItem dataField="email" editorType="dxTextBox">
             <RequiredRule message="Email is required" />
             <EmailRule message="Email is invalid" />
@@ -77,6 +75,10 @@ function SignupForm() {
 
           <SimpleItem dataField="password" editorType="dxTextBox">
             <RequiredRule message="Password is required" />
+          </SimpleItem>
+
+          <SimpleItem dataField="confirmPassword" editorType="dxTextBox">
+            <RequiredRule message="Confirm password is required" />
           </SimpleItem>
         </GroupItem>
 
