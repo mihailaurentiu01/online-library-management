@@ -7,9 +7,12 @@ import {
   RequiredRule,
   EmailRule,
   GroupItem,
+  CompareRule,
 } from "devextreme-react/form";
+
 import useSignup from "./useSignup";
 import User from "../../models/User";
+import Loading from "../Loading";
 
 const submitButtonOptions = {
   text: "Signup",
@@ -33,6 +36,10 @@ type UserSignup = {
   confirmPassword: string;
 };
 
+type PasswordOptions = {
+  mode: string;
+};
+
 function SignupForm() {
   const [formData, setFormData] = useState<UserSignup>({
     fullName: "",
@@ -42,7 +49,11 @@ function SignupForm() {
     confirmPassword: "",
   });
 
-  const { mutate, isLoading } = useSignup();
+  const [passwordOptions, setPasswordOptions] = useState<PasswordOptions>({
+    mode: "password",
+  });
+
+  const { mutate: createNewUser, isLoading } = useSignup();
 
   const onSubmitSignupForm = (e: React.FormEvent) => {
     e.preventDefault();
@@ -54,8 +65,14 @@ function SignupForm() {
       formData.email
     );
 
-    mutate(user);
+    createNewUser(user);
   };
+
+  const passwordComparisonHandler = () => {
+    return formData.password;
+  };
+
+  if (isLoading) return <Loading />;
 
   return (
     <form action="post" onSubmit={onSubmitSignupForm}>
@@ -77,12 +94,24 @@ function SignupForm() {
             <EmailRule message="Email is invalid" />
           </SimpleItem>
 
-          <SimpleItem dataField="password" editorType="dxTextBox">
+          <SimpleItem
+            dataField="password"
+            editorType="dxTextBox"
+            editorOptions={passwordOptions}
+          >
             <RequiredRule message="Password is required" />
           </SimpleItem>
 
-          <SimpleItem dataField="confirmPassword" editorType="dxTextBox">
+          <SimpleItem
+            dataField="confirmPassword"
+            editorType="dxTextBox"
+            editorOptions={passwordOptions}
+          >
             <RequiredRule message="Confirm password is required" />
+            <CompareRule
+              message="Password and confirm password do not match"
+              comparisonTarget={passwordComparisonHandler}
+            />
           </SimpleItem>
         </GroupItem>
 
