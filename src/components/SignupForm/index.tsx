@@ -8,11 +8,21 @@ import {
   EmailRule,
   GroupItem,
 } from "devextreme-react/form";
+import useSignup from "./useSignup";
+import User from "../../models/User";
 
 const submitButtonOptions = {
   text: "Signup",
   useSubmitBehavior: true,
   type: "default",
+};
+
+const mobileNumberOptions = {
+  mask: "+34 XXX XXX XXX",
+  maskRules: {
+    X: /[01-9]/,
+  },
+  maskInvalidMessage: "The phone must have a correct Spain phone format",
 };
 
 type UserSignup = {
@@ -21,14 +31,6 @@ type UserSignup = {
   email: string;
   password: string;
   confirmPassword: string;
-};
-
-type MobileNumberOptions = {
-  mask: string;
-  maskRules: {
-    X: RegExp;
-  };
-  maskInvalidMessage: string;
 };
 
 function SignupForm() {
@@ -40,17 +42,19 @@ function SignupForm() {
     confirmPassword: "",
   });
 
-  const [mobileNumberOptions, setMobileNumberOptions] =
-    useState<MobileNumberOptions>({
-      mask: "+34 XXX XXX XXX",
-      maskRules: {
-        X: /[01-9]/,
-      },
-      maskInvalidMessage: "The phone must have a correct Spain phone format",
-    });
+  const { mutate, isLoading } = useSignup();
 
   const onSubmitSignupForm = (e: React.FormEvent) => {
     e.preventDefault();
+
+    const user = new User(
+      formData.fullName,
+      +formData.mobileNumber,
+      formData.password,
+      formData.email
+    );
+
+    mutate(user);
   };
 
   return (

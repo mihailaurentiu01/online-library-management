@@ -3,6 +3,7 @@ import UserType from "./types/UserType";
 class User {
   id?: string = "";
   fullName: string;
+  email: string;
   mobileNumber: number;
   password: string;
   type: UserType = "user";
@@ -12,9 +13,11 @@ class User {
     fullName: string,
     mobileNumber: number,
     password: string,
-    type: UserType
+    email: string,
+    type: UserType = "user"
   ) {
     this.fullName = fullName;
+    this.email = email;
     this.mobileNumber = mobileNumber;
     this.password = password;
     this.type = type;
