@@ -40,7 +40,7 @@ function LoginForm() {
   const onSubmitLoginForm = (e: React.FormEvent) => {
     e.preventDefault();
 
-    console.log(performLoginAsUser(formData.email, formData.password));
+    const loginResult = performLoginAsUser(formData.email, formData.password);
   };
 
   if (isFetching) return <Loading />;

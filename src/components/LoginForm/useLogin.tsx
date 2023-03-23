@@ -33,16 +33,16 @@ const useLogin = () => {
     if (foundUser && foundUser.type === "user") {
       // password check
 
-      if (foundUser.password === password) return true;
+      if (foundUser.password === password) return foundUser;
 
       createNotification("Provided data does not match", "error");
 
-      return false;
+      return null;
     }
 
     createNotification("Provided data does not match", "error");
 
-    return false;
+    return null;
   };
 
   return {
