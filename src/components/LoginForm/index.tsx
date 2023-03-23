@@ -7,9 +7,11 @@ import {
   RequiredRule,
   EmailRule,
 } from "devextreme-react/form";
+import useLogin from "./useLogin";
+import Loading from "../Loading";
 
 const submitButtonOptions = {
-  text: "Submit the Form",
+  text: "Login",
   useSubmitBehavior: true,
   type: "default",
 };
@@ -19,15 +21,29 @@ type UserLogin = {
   password: string;
 };
 
+type PasswordOptions = {
+  mode: string;
+};
+
 function LoginForm() {
   const [formData, setFormData] = useState<UserLogin>({
     email: "",
     password: "",
   });
 
+  const [passwordOptions, setPasswordOptions] = useState<PasswordOptions>({
+    mode: "password",
+  });
+
+  const { isFetching, performLoginAsUser } = useLogin();
+
   const onSubmitLoginForm = (e: React.FormEvent) => {
     e.preventDefault();
+
+    console.log(performLoginAsUser(formData.email, formData.password));
   };
+
+  if (isFetching) return <Loading />;
 
   return (
     <form action="post" onSubmit={onSubmitLoginForm}>
@@ -37,7 +53,11 @@ function LoginForm() {
           <EmailRule message="Email is invalid" />
         </SimpleItem>
 
-        <SimpleItem dataField="password" editorType="dxTextBox">
+        <SimpleItem
+          dataField="password"
+          editorType="dxTextBox"
+          editorOptions={passwordOptions}
+        >
           <RequiredRule message="Password is required" />
         </SimpleItem>
 

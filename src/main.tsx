@@ -11,15 +11,25 @@ import {
 import App from "./App";
 import "./index.css";
 
+import { createNotification } from "./js/helpers";
+
 import "devextreme/dist/css/dx.light.css";
+import Mutations from "./models/enums/mutations";
 
 const queryClient = new QueryClient({
   mutationCache: new MutationCache({
     onError: (error) => {
-      console.log(error);
+      createNotification("Something went wrong... ", "error");
     },
     onSuccess: (response, variables, context, mutation) => {
-      console.log("success", mutation);
+      const mutationKey = mutation.options.mutationKey![0];
+
+      switch (mutationKey) {
+        case Mutations.CREATE_NEW_USER: {
+          createNotification("Your user was successfully created!", "success");
+          break;
+        }
+      }
     },
   }),
 });
