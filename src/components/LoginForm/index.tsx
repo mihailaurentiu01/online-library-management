@@ -1,6 +1,10 @@
 import { useState } from "react";
 import useLogin from "./useLogin";
+
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+
+import routes from "../../js/routes";
 import { setIsLoggedIn, setLoggedInUser } from "../../store/modules/user";
 
 import {
@@ -41,6 +45,7 @@ function LoginForm() {
   });
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { isFetching, performLoginAsUser } = useLogin();
 
@@ -55,6 +60,8 @@ function LoginForm() {
     if (loginResult) {
       dispatch(setIsLoggedIn(true));
       dispatch(setLoggedInUser(loginResult));
+
+      navigate(routes.dashboard);
     }
   };
 

@@ -2,5 +2,6 @@ export default {
     home: '/',
     login: '/login',
     signup: '/signup',
-    adminLogin: '/adminLogin'
+    adminLogin: '/adminLogin',
+    dashboard: '/dashboard'
 }

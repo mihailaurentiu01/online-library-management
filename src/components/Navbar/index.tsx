@@ -1,7 +1,10 @@
+import React from "react";
+
 import { Navbar } from "flowbite-react";
 
+import VisibleLinks from "./VisibleLinks";
+
 import { useLocation, useNavigate } from "react-router-dom";
-import routes from "../../js/routes";
 
 import styles from "./Navbar.module.css";
 
@@ -40,38 +43,10 @@ const NavbarCustom = () => {
           <Navbar.Toggle />
         </div>
         <Navbar.Collapse>
-          <Navbar.Link
-            onClick={goToRoute}
-            href={routes.home}
-            className={applyActiveClass(routes.home)}
-            active={location.pathname === routes.home}
-          >
-            Home
-          </Navbar.Link>
-          <Navbar.Link
-            onClick={goToRoute}
-            href={routes.login}
-            className={applyActiveClass(routes.login)}
-            active={location.pathname === routes.login}
-          >
-            User Login
-          </Navbar.Link>
-          <Navbar.Link
-            onClick={goToRoute}
-            href={routes.signup}
-            className={applyActiveClass(routes.signup)}
-            active={location.pathname === routes.signup}
-          >
-            User Signup
-          </Navbar.Link>
-          <Navbar.Link
-            onClick={goToRoute}
-            href={routes.adminLogin}
-            className={applyActiveClass(routes.adminLogin)}
-            active={location.pathname === routes.adminLogin}
-          >
-            Admin Login
-          </Navbar.Link>
+          <VisibleLinks
+            goToRoute={goToRoute}
+            applyActiveClass={applyActiveClass}
+          />
         </Navbar.Collapse>
       </Navbar>
     </>
