@@ -1,4 +1,7 @@
 import { useState } from "react";
+import useLogin from "./useLogin";
+import { useDispatch } from "react-redux";
+import { setIsLoggedIn, setLoggedInUser } from "../../store/modules/user";
 
 import {
   Form,
@@ -7,8 +10,10 @@ import {
   RequiredRule,
   EmailRule,
 } from "devextreme-react/form";
-import useLogin from "./useLogin";
+
 import Loading from "../Loading";
+
+import User from "../../models/User";
 
 const submitButtonOptions = {
   text: "Login",
@@ -35,12 +40,22 @@ function LoginForm() {
     mode: "password",
   });
 
+  const dispatch = useDispatch();
+
   const { isFetching, performLoginAsUser } = useLogin();
 
   const onSubmitLoginForm = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const loginResult = performLoginAsUser(formData.email, formData.password);
+    const loginResult: User | null = performLoginAsUser(
+      formData.email,
+      formData.password
+    );
+
+    if (loginResult) {
+      dispatch(setIsLoggedIn(true));
+      dispatch(setLoggedInUser(loginResult));
+    }
   };
 
   if (isFetching) return <Loading />;
