@@ -2,11 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
-.dx-theme-generic-typography a:not(.active) {
+.dx-theme-generic-typography a:not(.active, .isActive) {
     color: black !important;
 }
 
 .dx-theme-generic-typography a.active{
     background-color: transparent !important;
     font-weight: bold;
+}
+
+.isActive{
+    color: #337ab7 !important;
+    font-weight: bold;
+}
+
+div[data-testid="flowbite-tooltip-target"]{
+    width: 100% !important;
+}
+
+div[data-testid="flowbite-tooltip-target"] button {
+    width: 100% !important;
+    text-align: left;
 }

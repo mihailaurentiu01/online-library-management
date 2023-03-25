@@ -3,5 +3,12 @@ export default {
     login: '/login',
     signup: '/signup',
     adminLogin: '/adminLogin',
-    dashboard: '/dashboard'
+    dashboard: '/dashboard',
+    category: '/category',
+    addCategory: '/category/add',
+    author: '/author',
+    addAuthor: '/author/add',
+    manageIssuedBooks: '/issue',
+    issueNewBook: '/issue/add',
+    regStudents: '/students',
 }
