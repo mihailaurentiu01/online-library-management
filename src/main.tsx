@@ -32,6 +32,10 @@ const queryClient = new QueryClient({
           createNotification("Your user was successfully created!", "success");
           break;
         }
+        case Mutations.CREATE_NEW_CATEGORY: {
+          createNotification("Category created successfully!", "success");
+          break;
+        }
       }
     },
   }),

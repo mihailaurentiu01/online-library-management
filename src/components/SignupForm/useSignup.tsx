@@ -1,5 +1,4 @@
 import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
 import api from "../../services/api";
 
 import DB from "../../models/enums/db";

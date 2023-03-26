@@ -11,6 +11,7 @@ import HomePage from "./pages/Home";
 import UserLoginPage from "./pages/Login/User";
 import SignUpPage from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
+import AddCategory from "./pages/Category/Add";
 
 const PrivateRoute: React.FC<React.PropsWithChildren> = ({ children }) => {
   const { isLoggedIn } = useSelector((state: RootState) => state.user);
@@ -31,6 +32,14 @@ function App() {
             element={
               <PrivateRoute>
                 <Dashboard />
+              </PrivateRoute>
+            }
+          ></Route>
+          <Route
+            path={routes.addCategory}
+            element={
+              <PrivateRoute>
+                <AddCategory />
               </PrivateRoute>
             }
           ></Route>
