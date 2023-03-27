@@ -18,12 +18,9 @@ const useLogin = () => {
 
   const { data, isFetching } = useQuery(["users"], getAllUsers, {
     select: useCallback((response: AxiosResponse) => {
-      const allUsersUnformatted = response.data;
+      setUsers(response.data);
 
-      const allUsersFormatted: User[] = transformData(allUsersUnformatted);
-      setUsers(allUsersFormatted);
-
-      return allUsersFormatted;
+      return response.data;
     }, []),
   });
 

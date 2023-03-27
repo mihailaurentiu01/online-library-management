@@ -12,6 +12,7 @@ import UserLoginPage from "./pages/Login/User";
 import SignUpPage from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import AddCategory from "./pages/Category/Add";
+import ManageCategories from "./pages/Category/Manage";
 
 const PrivateRoute: React.FC<React.PropsWithChildren> = ({ children }) => {
   const { isLoggedIn } = useSelector((state: RootState) => state.user);
@@ -40,6 +41,15 @@ function App() {
             element={
               <PrivateRoute>
                 <AddCategory />
+              </PrivateRoute>
+            }
+          ></Route>
+
+          <Route
+            path={routes.category}
+            element={
+              <PrivateRoute>
+                <ManageCategories />
               </PrivateRoute>
             }
           ></Route>
