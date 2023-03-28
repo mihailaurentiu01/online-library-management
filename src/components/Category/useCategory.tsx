@@ -18,12 +18,30 @@ const getAllCategories = (): Promise<AxiosResponse<Category[]>> => {
   return api.get<Category[]>(DB.category);
 };
 
+const updateCategory = (data: any) => {
+  return api.put(DB.categoryNoJson + "/" + data.id + ".json", data.data);
+};
+
+const deleteCategory = (id: string) => {
+  return api.delete(DB.categoryNoJson + "/" + id + ".json");
+};
+
 const useCategory = () => {
   const [categories, setCategories] = useState<Category[]>();
 
   const { mutate, isLoading } = useMutation(createCatgory, {
     mutationKey: [Mutations.CREATE_NEW_CATEGORY],
   });
+
+  const { mutate: updateCategoryData, isLoading: isUpdateCategoryDataLoading } =
+    useMutation(updateCategory, {
+      mutationKey: [Mutations.UPDATE_CATEGORY],
+    });
+
+  const { mutate: deleteCategoryData, isLoading: isDeleteCategoryDataLoading } =
+    useMutation(deleteCategory, {
+      mutationKey: [Mutations.DELETE_CATEGORY],
+    });
 
   const { data, isFetching } = useQuery(["categories"], getAllCategories, {
     select: useCallback((response: AxiosResponse) => {
@@ -38,6 +56,10 @@ const useCategory = () => {
     isLoading,
     isFetching,
     categories,
+    updateCategoryData,
+    isUpdateCategoryDataLoading,
+    deleteCategoryData,
+    isDeleteCategoryDataLoading,
   };
 };
 

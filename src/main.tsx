@@ -36,6 +36,14 @@ const queryClient = new QueryClient({
           createNotification("Category created successfully!", "success");
           break;
         }
+        case Mutations.UPDATE_CATEGORY: {
+          createNotification("Category updated successfully!", "success");
+          break;
+        }
+        case Mutations.DELETE_CATEGORY: {
+          createNotification("Category deleted!", "info");
+          break;
+        }
       }
     },
   }),

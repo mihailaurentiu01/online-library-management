@@ -2,20 +2,30 @@ import React from "react";
 
 import useCategory from "../useCategory";
 
-import DataGrid, { Column, Editing, Lookup } from "devextreme-react/data-grid";
+import DataGrid, {
+  Column,
+  Editing,
+  Lookup,
+  SearchPanel,
+} from "devextreme-react/data-grid";
 
 import Loading from "../../Loading";
 
 import { CellPreparedEvent } from "devextreme/ui/data_grid";
-import { RowUpdatingEvent } from "devextreme/ui/data_grid";
+import { RowUpdatingEvent, RowRemovingEvent } from "devextreme/ui/data_grid";
 
 import Category from "../../../models/Category";
 import { availableStatuses } from "../../../js/common";
 
 function CategoriesListing() {
-  const { isFetching, categories } = useCategory();
-
-  if (isFetching) return <Loading />;
+  const {
+    isFetching,
+    categories,
+    updateCategoryData,
+    isUpdateCategoryDataLoading,
+    deleteCategoryData,
+    isDeleteCategoryDataLoading,
+  } = useCategory();
 
   const onCellPrepared = (e: CellPreparedEvent<Category, any>) => {
     if (e.rowType === "data") {
@@ -53,8 +63,17 @@ function CategoriesListing() {
 
     const putContent = e.oldData;
 
-    // Perform update
+    updateCategoryData({ id, data: putContent });
   };
+
+  const onRowRemoving = (e: RowRemovingEvent) => {
+    const { key: id } = e;
+
+    deleteCategoryData(id);
+  };
+
+  if (isFetching || isUpdateCategoryDataLoading || isDeleteCategoryDataLoading)
+    return <Loading />;
 
   return (
     <>
@@ -62,9 +81,10 @@ function CategoriesListing() {
         dataSource={categories}
         keyExpr="id"
         showBorders={true}
-        className="ml-10"
+        className="ml-10 mr-10"
         onCellPrepared={onCellPrepared}
         onRowUpdating={onRowUpdating}
+        onRowRemoving={onRowRemoving}
       >
         <Editing
           mode="row"
@@ -72,6 +92,8 @@ function CategoriesListing() {
           allowDeleting={true}
           allowUpdating={true}
         />
+
+        <SearchPanel visible={true} />
         <Column dataField="name" caption="Category" />
         <Column dataField="status" caption="Status">
           <Lookup dataSource={availableStatuses} />
