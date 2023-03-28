@@ -11,6 +11,7 @@ import {
   RequiredRule,
 } from "devextreme-react/form";
 
+import { availableStatuses } from "../../../js/common";
 import Category from "../../../models/Category";
 import Status from "../../../models/types/CategoryType";
 import { RootState } from "../../../store";
@@ -27,8 +28,6 @@ const submitButtonOptions = {
   useSubmitBehavior: true,
   type: "default",
 };
-
-const availableStatuses: Status[] = ["Active", "Inactive"];
 
 const radioGroupOptions = {
   dataSource: availableStatuses,
