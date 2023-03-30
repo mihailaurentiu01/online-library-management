@@ -11,26 +11,36 @@ import DataGrid, {
 
 import Loading from "../../Loading";
 
-import { CellPreparedEvent } from "devextreme/ui/data_grid";
 import { RowUpdatingEvent, RowRemovingEvent } from "devextreme/ui/data_grid";
 
-import Category from "../../../models/Category";
 import useAuthor from "../useAuthor";
 
 function AuthorsListing() {
-  const { isFetching, authors } = useAuthor();
+  const {
+    isFetching,
+    authors,
+    updateAuthorData,
+    isUpdateAuthorDataLoading,
+    deleteAuthorData,
+    isDeleteAuthorDataLoading,
+  } = useAuthor();
 
   const onRowUpdating = (e: RowUpdatingEvent) => {
     const { key: id } = e;
 
     const putContent = e.oldData;
+
+    updateAuthorData({ id, data: putContent });
   };
 
   const onRowRemoving = (e: RowRemovingEvent) => {
     const { key: id } = e;
+
+    deleteAuthorData(id);
   };
 
-  if (isFetching) return <Loading />;
+  if (isFetching || isUpdateAuthorDataLoading || isDeleteAuthorDataLoading)
+    return <Loading />;
 
   return (
     <>

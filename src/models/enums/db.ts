@@ -3,6 +3,7 @@ enum DB {
   category = "/category.json",
   categoryNoJson = "/category",
   authors = "/authors.json",
+  authorsNoJson = "/authors",
 }
 
 export default DB;

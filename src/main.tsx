@@ -48,6 +48,14 @@ const queryClient = new QueryClient({
           createNotification("Author created successfully!", "success");
           break;
         }
+        case Mutations.UPDATE_AUTHOR: {
+          createNotification("Author deleted", "info");
+          break;
+        }
+        case Mutations.DELETE_AUTHOR: {
+          createNotification("Author updated successfully!", "success");
+          break;
+        }
       }
     },
   }),
