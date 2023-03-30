@@ -13,6 +13,8 @@ import SignUpPage from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import AddCategory from "./pages/Category/Add";
 import ManageCategories from "./pages/Category/Manage";
+import AddAuthor from "./pages/Author/Add";
+import ManageAuthors from "./pages/Author/Manage";
 
 const PrivateRoute: React.FC<React.PropsWithChildren> = ({ children }) => {
   const { isLoggedIn } = useSelector((state: RootState) => state.user);
@@ -50,6 +52,24 @@ function App() {
             element={
               <PrivateRoute>
                 <ManageCategories />
+              </PrivateRoute>
+            }
+          ></Route>
+
+          <Route
+            path={routes.addAuthor}
+            element={
+              <PrivateRoute>
+                <AddAuthor />
+              </PrivateRoute>
+            }
+          ></Route>
+
+          <Route
+            path={routes.author}
+            element={
+              <PrivateRoute>
+                <ManageAuthors />
               </PrivateRoute>
             }
           ></Route>

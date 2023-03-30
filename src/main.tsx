@@ -44,6 +44,10 @@ const queryClient = new QueryClient({
           createNotification("Category deleted!", "info");
           break;
         }
+        case Mutations.CREATE_NEW_AUTHOR: {
+          createNotification("Author created successfully!", "success");
+          break;
+        }
       }
     },
   }),
