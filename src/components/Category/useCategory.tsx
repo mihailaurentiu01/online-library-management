@@ -51,6 +51,10 @@ const useCategory = () => {
     }, []),
   });
 
+  const getAllActiveCategories = () => {
+    return categories?.filter((category) => category.status === "Active");
+  };
+
   return {
     mutate,
     isLoading,
@@ -60,6 +64,7 @@ const useCategory = () => {
     isUpdateCategoryDataLoading,
     deleteCategoryData,
     isDeleteCategoryDataLoading,
+    getAllActiveCategories,
   };
 };
 

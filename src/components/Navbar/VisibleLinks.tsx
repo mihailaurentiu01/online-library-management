@@ -159,6 +159,45 @@ const VisibleLinks: React.FC<React.PropsWithChildren<VisibleLinksProps>> = ({
             label={
               <Navbar.Collapse>
                 <Navbar.Link
+                  className={applyActiveToDropdown(routes.books)}
+                  href=""
+                  onClick={(e) => e.preventDefault()}
+                  active={false}
+                >
+                  Books
+                </Navbar.Link>
+              </Navbar.Collapse>
+            }
+          >
+            <Dropdown.Header>
+              <span className="block text-sm">Manage your books</span>
+            </Dropdown.Header>
+            <Dropdown.Item>
+              <a
+                className="w-full sm:w-fit"
+                href={routes.addNewBook}
+                onClick={goToRoute}
+              >
+                Add
+              </a>
+            </Dropdown.Item>
+            <Dropdown.Item>
+              <a
+                className="w-full sm:w-fit"
+                href={routes.books}
+                onClick={goToRoute}
+              >
+                Manage
+              </a>
+            </Dropdown.Item>
+          </Dropdown>
+
+          <Dropdown
+            arrowIcon={true}
+            inline={true}
+            label={
+              <Navbar.Collapse>
+                <Navbar.Link
                   className={applyActiveToDropdown(routes.manageIssuedBooks)}
                   href=""
                   onClick={(e) => e.preventDefault()}

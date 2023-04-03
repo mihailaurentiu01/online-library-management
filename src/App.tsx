@@ -15,6 +15,7 @@ import AddCategory from "./pages/Category/Add";
 import ManageCategories from "./pages/Category/Manage";
 import AddAuthor from "./pages/Author/Add";
 import ManageAuthors from "./pages/Author/Manage";
+import AddBook from "./pages/Books/Add";
 
 const PrivateRoute: React.FC<React.PropsWithChildren> = ({ children }) => {
   const { isLoggedIn } = useSelector((state: RootState) => state.user);
@@ -70,6 +71,15 @@ function App() {
             element={
               <PrivateRoute>
                 <ManageAuthors />
+              </PrivateRoute>
+            }
+          ></Route>
+
+          <Route
+            path={routes.addNewBook}
+            element={
+              <PrivateRoute>
+                <AddBook />
               </PrivateRoute>
             }
           ></Route>
