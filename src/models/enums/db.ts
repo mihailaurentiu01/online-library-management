@@ -4,6 +4,7 @@ enum DB {
   categoryNoJson = "/category",
   authors = "/authors.json",
   authorsNoJson = "/authors",
+  books = "/books.json",
 }
 
 export default DB;

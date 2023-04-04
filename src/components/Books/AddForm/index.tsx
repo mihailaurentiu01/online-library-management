@@ -16,6 +16,9 @@ import Loading from "../../Loading";
 import Author from "../../../models/Author";
 import useCategory from "../../Category/useCategory";
 import Category from "../../../models/Category";
+import useAuthor from "../../Author/useAuthor";
+import useBook from "../useBook";
+import Book from "../../../models/Book";
 
 type FormData = {
   bookName: string;
@@ -27,7 +30,7 @@ type FormData = {
 };
 
 type radioGroupOptionsType = {
-  dataSource: Category[] | undefined;
+  dataSource: Category[] | undefined | Author[];
   displayExpr: string;
   valueExpr: string;
 };
@@ -39,6 +42,12 @@ const submitButtonOptions = {
 };
 
 const radioGroupOptions: radioGroupOptionsType = {
+  dataSource: [],
+  displayExpr: "name",
+  valueExpr: "id",
+};
+
+const radioGroupOptionsAuthor: radioGroupOptionsType = {
   dataSource: [],
   displayExpr: "name",
   valueExpr: "id",
@@ -57,13 +66,30 @@ function AddBookForm() {
   const { user } = useSelector((state: RootState) => state.user);
 
   const { isFetching, getAllActiveCategories } = useCategory();
+  const { isFetching: isFetchingAuthors, authors } = useAuthor();
+  const { postCreateBook, isCreateBookLoading } = useBook();
 
-  if (isFetching) return <Loading />;
+  if (isFetching || isFetchingAuthors || isCreateBookLoading)
+    return <Loading />;
 
   radioGroupOptions.dataSource = getAllActiveCategories();
 
+  radioGroupOptionsAuthor.dataSource = authors;
+
   const onSubmitAddBookForm = (e: React.FormEvent) => {
     e.preventDefault();
+
+    const book = new Book(
+      formData.bookName,
+      user?.id,
+      formData.category,
+      formData.author,
+      formData.isbn,
+      formData.price,
+      formData.picture
+    );
+
+    postCreateBook(book);
   };
 
   return (
@@ -81,8 +107,12 @@ function AddBookForm() {
           <RequiredRule message="Category requires a name" />
         </SimpleItem>
 
-        <SimpleItem dataField="author" editorType="dxTextBox">
-          <RequiredRule message="Author requires a name" />
+        <SimpleItem
+          dataField="author"
+          editorType="dxSelectBox"
+          editorOptions={radioGroupOptionsAuthor}
+        >
+          <RequiredRule message="Author is required" />
         </SimpleItem>
 
         <SimpleItem dataField="isbn" editorType="dxNumberBox">

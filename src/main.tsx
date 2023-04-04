@@ -56,6 +56,10 @@ const queryClient = new QueryClient({
           createNotification("Author updated successfully!", "success");
           break;
         }
+        case Mutations.CREATE_BOOK: {
+          createNotification("Book created successfully!!", "success");
+          break;
+        }
       }
     },
   }),

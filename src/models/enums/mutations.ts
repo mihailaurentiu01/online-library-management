@@ -6,6 +6,7 @@ enum Mutations {
   CREATE_NEW_AUTHOR = "postCreateAuthor",
   UPDATE_AUTHOR = "putUpdateAuthor",
   DELETE_AUTHOR = "deleteAuthor",
+  CREATE_BOOK = "postCreateBook",
 }
 
 export default Mutations;
